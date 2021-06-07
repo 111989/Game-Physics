@@ -226,11 +226,11 @@ if __name__ == '__main__':
     #parse input arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--width', type = int, default = 1200, \
-        help='Display width, must be an integer')
+        help = 'Display width, must be an integer')
     parser.add_argument('--height', type = int, default = 600, \
-        help='Display height, must be an integer')
+        help = 'Display height, must be an integer')
     parser.add_argument('--n', type = int, default = 60, \
-        help='The display is treated as an (nxn) matrix. \
+        help = 'The display is treated as an (nxn) matrix. \
             Must be an integer that completely divides both width and height')
     args = vars(parser.parse_args())
 
