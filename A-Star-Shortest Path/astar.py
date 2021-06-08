@@ -221,6 +221,7 @@ def main():
         draw(display, display_width, display_height, matrix, total_cells, NONE)
     pygame.quit()
 
+    
 
     
 if __name__ == '__main__':
@@ -242,4 +243,3 @@ if __name__ == '__main__':
 
     
     main()
-   
