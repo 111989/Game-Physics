@@ -1,6 +1,6 @@
 import os
 import pygame
-from gjk import intersect
+from gjk_algorithm import intersect
 
 def main():
     #initialize colours
