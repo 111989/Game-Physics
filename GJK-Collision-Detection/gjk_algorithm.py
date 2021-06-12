@@ -3,6 +3,8 @@
      implementation to detect intersection 
      between two convex polygons"""
 
+
+
 def intersect(polygon1: list, polygon2: list) -> bool: 
     """Returns True if polygon1 and polygon2 intersect"""
 
@@ -28,6 +30,8 @@ def intersect(polygon1: list, polygon2: list) -> bool:
         magnitude = (x*x + y*y)**0.5
         return [x/magnitude, y/magnitude]
 
+     
+     
     def get_support_point(polygon1: list, polygon2: list, direction: list) -> list:
         """
             Finds the support point in the 
@@ -53,6 +57,8 @@ def intersect(polygon1: list, polygon2: list) -> bool:
         fp_shape2 = get_furthest_point(polygon2, subtract(ORIGIN, direction))
         return subtract(fp_shape1, fp_shape2) 
 
+     
+     
     def handle_simplex(simplex: list, direction: list) -> bool:
         """
             Depending on the size of the 
@@ -109,6 +115,8 @@ def intersect(polygon1: list, polygon2: list) -> bool:
             if len(simplex) == 2 \
                 else handle_tri(simplex, direction)
 
+     
+     
     direction = normalize(subtract(centroid(polygon2), centroid(polygon1))) 
         # initial direction could be chosen randomly
     simplex = [get_support_point(polygon1, polygon2, direction)] 
