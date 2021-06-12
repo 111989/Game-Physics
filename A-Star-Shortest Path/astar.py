@@ -7,6 +7,8 @@ import pygame
 import argparse
 from queue import PriorityQueue
 
+
+
 class Cell: 
     def __init__(self, cell_row: int, cell_col: int, \
         display_width: int, display_height: int, total_cells: int, NONE: tuple):
@@ -28,6 +30,8 @@ class Cell:
     def __lt__(self, other):
         return False
 
+    
+    
 def draw(display, display_width: int, display_height: int, \
     matrix, total_cells: int, NONE: tuple):
 
@@ -45,11 +49,15 @@ def draw(display, display_width: int, display_height: int, \
     # update display
     pygame.display.update()
 
+    
+    
 def algorithm(display, display_width: int, display_height: int, \
     matrix, total_cells: int, start_cell, end_cell, NONE: tuple, \
         START: tuple, END: tuple, OBSTACLE: tuple, OPEN: tuple, \
             CLOSED: tuple, PATH: tuple):
 
+    
+    
     def heuristic(cell):
         """
             Returns Manhattan Distance
@@ -58,6 +66,8 @@ def algorithm(display, display_width: int, display_height: int, \
         x1, y1 = cell.get_cell_position()
         x2, y2 = end_cell.get_cell_position()
         return abs(x2-x1) + abs(y2-y1)
+    
+    
     """ 
         Initialize a Priority Queue 'open_cells'
         for the algorithm to track cells with
@@ -71,15 +81,19 @@ def algorithm(display, display_width: int, display_height: int, \
     open_cells.put((start_cell.f_score, tie_breaker, start_cell)) 
     open_cells_set = {start_cell} 
 
+    
+    
     while not open_cells.empty():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
+                
         # fetch the cell with the least f_score, call it current_cell
         current_cell = open_cells.get()[2] 
         open_cells_set.remove(current_cell)
-
+        
+        
+        
         if current_cell == end_cell:
             
             # draw optimal path
@@ -92,7 +106,9 @@ def algorithm(display, display_width: int, display_height: int, \
             
             # optimal path found, terminate algorithm
             break
-
+            
+            
+            
         # generate successors of the current_cell
         # TOP
         if current_cell.cell_row > 0 and \
@@ -127,6 +143,8 @@ def algorithm(display, display_width: int, display_height: int, \
         #     matrix[current_cell.cell_row+1][current_cell.cell_col-1] != OBSTACLE:
         #     current_cell.successors.append(matrix[current_cell.cell_row+1][current_cell.cell_col-1])
         
+        
+        
         min_g_score = current_cell.g_score + 1
         for successor in current_cell.successors:
             if min_g_score < successor.g_score:
@@ -140,12 +158,16 @@ def algorithm(display, display_width: int, display_height: int, \
                     open_cells.put((successor.f_score, tie_breaker, successor))
                     open_cells_set.add(successor)
                     successor.mode = OPEN
+    
+    
                     
         if current_cell != start_cell: 
             current_cell.mode = CLOSED
 
         draw(display, display_width, display_height, matrix, total_cells, NONE)
 
+        
+        
 def main():
     
     # initialize cell modes
@@ -170,6 +192,8 @@ def main():
                 display_width, display_height, total_cells, NONE)
             matrix[cell_row].append(cell)
 
+            
+            
     start_cell, end_cell = None, None
     run = True
     while run:
@@ -201,9 +225,13 @@ def main():
                         total_cells, start_cell, end_cell, NONE, START, END, \
                             OBSTACLE, OPEN, CLOSED, PATH)
                 
+                
+                
             # update display 
         draw(display, display_width, display_height, matrix, total_cells, NONE)
     pygame.quit()
+    
+    
     
 if __name__ == '__main__':
     
