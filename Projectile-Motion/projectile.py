@@ -25,6 +25,7 @@ class Ball:
         self.center = (self.x, self.y)
 
         
+        
 def main():
     
     # initialize pygame display
@@ -46,7 +47,6 @@ def main():
     # generate ball
     ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, \
         BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
-    
     
     # run the projectile
     time = 0
@@ -78,7 +78,6 @@ def main():
                 elif x > 0 and y > 0: angle = math.pi - angle 
                 launch = True
 
-                
         if launch and ball.y <= ground: 
             # update ball coordinates to those dictated by projectile motion at time t
             time += ball.ball_speed
@@ -89,7 +88,6 @@ def main():
                 ((-acceleration * (time**2))/2))
             ball.x, ball.y = round(displacement_x), round(displacement_y)
 
-            
         # update coordinates of ball center
         ball.center = (ball.x, ball.y)
 
@@ -106,10 +104,10 @@ def main():
         pygame.draw.circle(display, ball.ball_colour, ball.center, ball.ball_radius)
 
         # update display
-        pygame.display.update()
-        
+        pygame.display.update()  
         
     pygame.quit()
+    
     
     
 if __name__ == '__main__':
