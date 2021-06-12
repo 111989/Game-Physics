@@ -24,7 +24,7 @@ class Ball:
         self.x = display_width // 2
         self.y = (display_height - 1) - self.ball_radius
         self.center = (self.x, self.y)
-
+        
 def main():
     
     #initialize pygame display
@@ -46,7 +46,7 @@ def main():
     #generate ball
     ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, \
         BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
-
+    
     #run the projectile
     time = 0
     launch = False
@@ -55,12 +55,12 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
+                
             if launch and ground < ball.y: 
                 ball.y = ground
                 time = 0
                 launch = False
-
+                
             if not launch and pygame.mouse.get_pressed()[0]:
                 
                 #set initial coordinates
@@ -111,8 +111,8 @@ def main():
         #update display
         pygame.display.update()
         
-    pygame.quit() 
-
+    pygame.quit()
+    
 if __name__ == '__main__':
     
     main()
