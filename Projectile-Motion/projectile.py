@@ -7,8 +7,6 @@
 import math
 import pygame
 
-
-
 class Ball:
     """
         Creates a ball object 
@@ -25,8 +23,7 @@ class Ball:
         self.x = display_width // 2
         self.y = (display_height - 1) - self.ball_radius
         self.center = (self.x, self.y)
-        
-        
+
         
 def main():
     
@@ -51,7 +48,6 @@ def main():
         BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
     
     
-    
     # run the projectile
     time = 0
     launch = False
@@ -67,7 +63,6 @@ def main():
                 launch = False
                 
             if not launch and pygame.mouse.get_pressed()[0]:
-                
                 # set initial coordinates
                 (x0, y0) = ball.center 
                 x1, y1 = pygame.mouse.get_pos()
@@ -75,32 +70,25 @@ def main():
 
                 # compute projectile parameters 
                 hypotenuse = hyp_factor * math.sqrt((y)**2 + (x)**2)   
-                
                 try: angle = math.atan((y)/(x))
                 except: angle = math.pi / 2
                 if x < 0 and y < 0: angle = 2 * math.pi - angle
                 elif x < 0 and y > 0: angle = abs(angle)
                 elif x > 0 and y < 0: angle = math.pi + abs(angle)    
                 elif x > 0 and y > 0: angle = math.pi - angle 
-
                 launch = True
 
                 
-                
         if launch and ball.y <= ground: 
-            
             # update ball coordinates to those dictated by projectile motion at time t
             time += ball.ball_speed
-            
             velocity_x = math.cos(angle) * hypotenuse
             velocity_y = math.sin(angle) * hypotenuse
             displacement_x = x0 + velocity_x * time
             displacement_y = y0 - ((velocity_y * time) + \
                 ((-acceleration * (time**2))/2))
-                
             ball.x, ball.y = round(displacement_x), round(displacement_y)
 
-            
             
         # update coordinates of ball center
         ball.center = (ball.x, ball.y)
@@ -120,10 +108,9 @@ def main():
         # update display
         pygame.display.update()
         
+        
     pygame.quit()
     
     
-    
 if __name__ == '__main__':
-    
     main()
