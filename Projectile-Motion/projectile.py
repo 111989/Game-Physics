@@ -7,6 +7,8 @@
 import math
 import pygame
 
+
+
 class Ball:
     """
         Creates a ball object 
@@ -23,6 +25,8 @@ class Ball:
         self.x = display_width // 2
         self.y = (display_height - 1) - self.ball_radius
         self.center = (self.x, self.y)
+        
+        
         
 def main():
     
@@ -45,6 +49,8 @@ def main():
     # generate ball
     ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, \
         BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
+    
+    
     
     # run the projectile
     time = 0
@@ -79,6 +85,8 @@ def main():
 
                 launch = True
 
+                
+                
         if launch and ball.y <= ground: 
             
             # update ball coordinates to those dictated by projectile motion at time t
@@ -92,6 +100,8 @@ def main():
                 
             ball.x, ball.y = round(displacement_x), round(displacement_y)
 
+            
+            
         # update coordinates of ball center
         ball.center = (ball.x, ball.y)
 
@@ -111,6 +121,8 @@ def main():
         pygame.display.update()
         
     pygame.quit()
+    
+    
     
 if __name__ == '__main__':
     
