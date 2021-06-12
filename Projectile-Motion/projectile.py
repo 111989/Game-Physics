@@ -2,8 +2,7 @@
     Projectile Motion in 2D,
     with zero air resistance
     and constant acceleration
-    in the vertical direction
-"""
+    in the vertical direction"""
 
 import math
 import pygame
@@ -13,8 +12,8 @@ class Ball:
         Creates a ball object 
         with location, size, 
         appearance and speed
-        attributes 
-    """
+        attributes"""
+    
     def __init__(self, display_width: int, display_height: int, \
         ball_radius: float, ball_colour: tuple, ball_speed: float):
 
@@ -27,27 +26,27 @@ class Ball:
         
 def main():
     
-    #initialize pygame display
+    # initialize pygame display
     DISPLAY_WIDTH = 1250
     DISPLAY_HEIGHT = 500
     display = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
     pygame.display.set_caption("Projectile Motion")
 
-    #initialize ball features
+    # initialize ball features
     BALL_RADIUS = 7.5
     BALL_COLOUR = (50, 50, 50)
     BALL_SPEED = 0.0175
 
-    #initialize projectile inputs
+    # initialize projectile inputs
     ground = (DISPLAY_HEIGHT - 1) - BALL_RADIUS
     hyp_factor = 0.1
     acceleration = 4.9
 
-    #generate ball
+    # generate ball
     ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, \
         BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
     
-    #run the projectile
+    # run the projectile
     time = 0
     launch = False
     run = True
@@ -63,12 +62,12 @@ def main():
                 
             if not launch and pygame.mouse.get_pressed()[0]:
                 
-                #set initial coordinates
+                # set initial coordinates
                 (x0, y0) = ball.center 
                 x1, y1 = pygame.mouse.get_pos()
                 x, y = x0-x1, y0-y1
 
-                #compute projectile parameters 
+                # compute projectile parameters 
                 hypotenuse = hyp_factor * math.sqrt((y)**2 + (x)**2)   
                 
                 try: angle = math.atan((y)/(x))
@@ -82,7 +81,7 @@ def main():
 
         if launch and ball.y <= ground: 
             
-            #update ball coordinates to those dictated by projectile motion at time t
+            # update ball coordinates to those dictated by projectile motion at time t
             time += ball.ball_speed
             
             velocity_x = math.cos(angle) * hypotenuse
@@ -93,22 +92,22 @@ def main():
                 
             ball.x, ball.y = round(displacement_x), round(displacement_y)
 
-        #update coordinates of ball center
+        # update coordinates of ball center
         ball.center = (ball.x, ball.y)
 
-        #fill display
+        # fill display
         DISPLAY_COLOUR = (125, 125, 150)
         display.fill(DISPLAY_COLOUR)
 
-        #draw hypotenuse
+        # draw hypotenuse
         HYP_COLOUR = (200, 200, 200)
         HYP_WIDTH = 3
         pygame.draw.line(display, HYP_COLOUR, ball.center, pygame.mouse.get_pos(), HYP_WIDTH)
 
-        #draw ball
+        # draw ball
         pygame.draw.circle(display, ball.ball_colour, ball.center, ball.ball_radius)
 
-        #update display
+        # update display
         pygame.display.update()
         
     pygame.quit()
