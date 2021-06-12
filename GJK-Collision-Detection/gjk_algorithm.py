@@ -81,11 +81,10 @@ def intersect(polygon1: list, polygon2: list) -> bool:
             """
                 Point A is the most recently 
                 added point to the simplex by 
-                convention. 
-                
-                Returns False since we only have 
-                a line and the ORIGIN is not 
-                contained within the simplex yet"""
+                convention. Returns False since 
+                we only have a line and the 
+                ORIGIN is not contained within 
+                the simplex yet"""
             
             B, A = simplex[0], simplex[1]
             AB, AO = subtract(B, A), subtract(ORIGIN, A)
