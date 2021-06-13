@@ -3,8 +3,6 @@
      implementation to detect intersection 
      between two convex polygons"""
 
-
-
 def intersect(polygon1: list, polygon2: list) -> bool: 
     """Returns True if polygon1 and polygon2 intersect"""
 
