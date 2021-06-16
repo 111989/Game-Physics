@@ -3,11 +3,12 @@ import pygame
 from gjk_algorithm import intersect
 
 
+
 def main():
     
-    #initialize colours
-    #initialize the fixed polygon
-    #initialize pygame display
+    # initialize colours
+    # initialize the fixed polygon
+    # initialize pygame display
     BACKGROUND = (175, 175, 225)
     POLYGON = (225, 225, 225)
     RED = (200, 75, 75)
@@ -18,7 +19,6 @@ def main():
     DISPLAY = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
     pygame.display.set_caption("GJK Collision Detection")
 
-
     #run the visualizer 
     run = True
     while run:
@@ -26,12 +26,11 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         
-        
-        #fill display
-        #draw the fixed polygon
-        #get the position of polygon2
-        #run the GJK algorithm
-        #draw polygon2
+        # fill display
+        # draw the fixed polygon
+        # get the position of polygon2
+        # run the GJK algorithm
+        # draw polygon2
         pygame.time.delay(10)
         pygame.display.flip()
         DISPLAY.fill(BACKGROUND)
@@ -43,9 +42,9 @@ def main():
         collision = intersect(polygon1, polygon2)        
         pygame.draw.polygon(DISPLAY, RED if collision else GREEN, polygon2)
 
-
     pygame.quit()
     quit()
+
 
 
 if __name__ == '__main__':
