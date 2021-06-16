@@ -1,13 +1,11 @@
 """
      Gilbert-Johnson-Keerthi Algorithm 
      implementation to detect inter
-     -section between two convex polygons 
-"""
+     -section between two convex polygons"""
 
+# Returns True if polygon1 and polygon2 intersect
 def intersect(polygon1: list, polygon2: list) -> bool: 
-    ''' 
-        Returns True if polygon1 and polygon2 intersect.
-    '''
+   
     ORIGIN = [0, 0]
 
     def subtract(vector1: list, vector2: list) -> list:
@@ -30,16 +28,17 @@ def intersect(polygon1: list, polygon2: list) -> bool:
         magnitude = (x*x + y*y)**0.5
         return [x/magnitude, y/magnitude]
 
+
+
+    # Finds the support point in the 
+    # Minkowski Difference, by taking the
+    # difference between the furthest 
+    # point in the given direction in 
+    # polygon1 and the furthest point 
+    # in the opposite direction on 
+    # polygon2
     def get_support_point(polygon1: list, polygon2: list, direction: list) -> list:
-        '''
-            Finds the support point in the 
-            Minkowski Difference, by taking the
-            difference between the furthest 
-            point in the given direction in 
-            polygon1 and the furthest point 
-            in the opposite direction on 
-            polygon2.
-        '''
+        
         def get_furthest_point(polygon: list, direction: list) -> list:
             furthest_point = polygon[0]
             max_dot = dot(furthest_point, direction)
@@ -56,39 +55,39 @@ def intersect(polygon1: list, polygon2: list) -> bool:
         return subtract(fp_shape1, fp_shape2) 
 
 
+
+    # Depending on the size of the 
+    # simplex, finds a new direction 
+    # and updates the simplex. Returns 
+    # True if the simplex contains the 
+    # ORIGIN
     def handle_simplex(simplex: list, direction: list) -> bool:
-        '''
-            Depending on the size of the 
-            simplex, finds a new direction 
-            and updates the simplex. Returns 
-            True if the simplex contains the 
-            ORIGIN.
-        '''
+        
+
+        # Returns the vector triple product 
+        # vector1 X vector2 X vector1, where
+        # X represents cross product
         def triple_cross(vector1: list, vector2: list) -> list:
-            """
-            Returns the vector triple product 
-            vector1 X vector2 X vector1, 
-            where X represents cross product.
-            """
+            
             x1, y1 = vector1[0], vector1[1]
             x2, y2 = vector2[0], vector2[1]
             return [y1*(y1*x2 - x1*y2), x1*(x1*y2 - y1*x2)]
 
+
+        # Point A is the most recently 
+        # added point to the simplex by 
+        # convention. 
+        # Returns False since we only have 
+        # a line and the ORIGIN is not 
+        # contained within the simplex yet
         def handle_line(simplex: list, direction: list) -> False:
-            '''
-                Point A is the most recently 
-                added point to the simplex by 
-                convention. 
-                
-                Returns False since we only have 
-                a line and the ORIGIN is not 
-                contained within the simplex yet.
-            '''
+            
             B, A = simplex[0], simplex[1]
             AB, AO = subtract(B, A), subtract(ORIGIN, A)
             AB_perpendicular = triple_cross(AB, AO)
             direction[0], direction[1] = AB_perpendicular[0], AB_perpendicular[1]
             return False
+
 
         def handle_tri(simplex: list, direction: list) -> bool:
             C, B, A = simplex[0], simplex[1], simplex[2]
@@ -107,26 +106,26 @@ def intersect(polygon1: list, polygon2: list) -> bool:
                 return False
             # ORIGIN is in triangle ABC
             return True
-
-        return handle_line(simplex, direction) \
-            if len(simplex) == 2 \
-                else handle_tri(simplex, direction)
+        return handle_line(simplex, direction) if len(simplex) == 2 else handle_tri(simplex, direction)
 
 
+
+    # initial direction could be chosen randomly
+    # add the first support point on the simplex
+    # the next direction must be towards the ORIGIN
     direction = normalize(subtract(centroid(polygon2), centroid(polygon1))) 
-        # initial direction could be chosen randomly
     simplex = [get_support_point(polygon1, polygon2, direction)] 
-        # the first support point on the simplex
     direction = subtract(ORIGIN, simplex[0]) 
-        # the next direction must be towards the ORIGIN
-     
     while True: 
+
+
         # get new support points
-        A = get_support_point(polygon1, polygon2, direction) 
-        if dot(A, direction) < 0: # point A doesn't pass the ORIGIN
-            # polygons didn't intersect
-            return False 
+        # if point A doesn't pass the ORIGIN, 
+        # polygons didn't intersect, return False
         # Otherwise, add point to simplex
+        A = get_support_point(polygon1, polygon2, direction) 
+        if dot(A, direction) < 0: 
+            return False 
         simplex.append(A) 
         if handle_simplex(simplex, direction):
             return True
