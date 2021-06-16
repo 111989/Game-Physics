@@ -7,7 +7,6 @@ import pygame
 import argparse
 from queue import PriorityQueue
 
-
 class Cell: 
     def __init__(self, cell_row: int, cell_col: int, display_width: int, display_height: int, total_cells: int, NONE: tuple):
         
@@ -22,14 +21,13 @@ class Cell:
         self.g_score = float('inf')
         self.f_score = float('inf')
 
-
     def get_cell_position(self):
         return self.cell_row, self.cell_col
 
     def __lt__(self, other):
         return False
 
-
+    
 
 def draw(display, display_width: int, display_height: int, matrix, total_cells: int, NONE: tuple):
 
@@ -215,7 +213,6 @@ def main():
     pygame.quit()
 
     
-
     
 if __name__ == '__main__':
     
