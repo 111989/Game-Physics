@@ -1,19 +1,14 @@
-"""
-    Projectile Motion in 2D,
-    with zero air resistance
-    and constant acceleration
-    in the vertical direction"""
+""" Projectile Motion in 2D, with zero air resistance and 
+    constant acceleration in the vertical direction """
 
 import math
 import pygame
 
-
-# Creates a ball object 
-# with location, size, 
-# appearance and speed
-# attributes   
+# Creates a ball object with location, 
+# size, appearance & speed attributes.   
 class Ball:
-    def __init__(self, display_width: int, display_height: int, ball_radius: float, ball_colour: tuple, ball_speed: float):
+    def __init__(self, display_width: int, display_height: int, 
+        ball_radius: float, ball_colour: tuple, ball_speed: float):
 
         self.ball_radius = ball_radius
         self.ball_colour = ball_colour
@@ -40,8 +35,8 @@ def main():
     ground = (DISPLAY_HEIGHT - 1) - BALL_RADIUS
     hyp_factor = 0.1
     acceleration = 4.9
-    ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
 
+    ball = Ball(DISPLAY_WIDTH, DISPLAY_HEIGHT, BALL_RADIUS, BALL_COLOUR, BALL_SPEED)
 
     # run the projectile
     time = 0
@@ -52,17 +47,15 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-
             if launch and ground < ball.y: 
                 ball.y = ground
                 time = 0
                 launch = False
 
-
+            # Set initial coordinates and
+            # compute projectile parameters. 
             if not launch and pygame.mouse.get_pressed()[0]:
 
-                # set initial coordinates
-                # compute projectile parameters 
                 (x0, y0) = ball.center 
                 x1, y1 = pygame.mouse.get_pos()
                 x, y = x0-x1, y0-y1
@@ -74,19 +67,17 @@ def main():
                 elif x > 0 and y < 0: angle = math.pi + abs(angle)    
                 elif x > 0 and y > 0: angle = math.pi - angle 
                 launch = True
-                    
-
+        
+        # Update ball coordinates to those 
+        # dictated by projectile motion at time t.
         if launch and ball.y <= ground: 
 
-            # update ball coordinates to those 
-            # dictated by projectile motion at time t
             time += ball.ball_speed
             velocity_x = math.cos(angle) * hypotenuse
             velocity_y = math.sin(angle) * hypotenuse
             displacement_x = x0 + velocity_x * time
             displacement_y = y0 - ((velocity_y * time) + ((-acceleration * (time**2))/2))
             ball.x, ball.y = round(displacement_x), round(displacement_y)
-
 
         # update coordinates of ball center
         # fill display
@@ -101,9 +92,9 @@ def main():
         pygame.draw.line(display, HYP_COLOUR, ball.center, pygame.mouse.get_pos(), HYP_WIDTH)
         pygame.draw.circle(display, ball.ball_colour, ball.center, ball.ball_radius)
         pygame.display.update()
-        
 
     pygame.quit() 
+
 
 
 if __name__ == '__main__':
