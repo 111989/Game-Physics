@@ -7,6 +7,7 @@ import pygame
 import argparse
 from queue import PriorityQueue
 
+
 class Cell: 
     def __init__(self, cell_row: int, cell_col: int, display_width: int, display_height: int, total_cells: int, NONE: tuple):
         
