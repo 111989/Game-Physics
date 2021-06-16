@@ -1,8 +1,7 @@
 """
     A* Shortest Path Finding 
     Algorithm implementation 
-    and interactive visualization
-"""
+    and interactive visualization"""
 
 import pygame
 import argparse
@@ -10,8 +9,7 @@ from queue import PriorityQueue
 
 
 class Cell: 
-    def __init__(self, cell_row: int, cell_col: int, \
-        display_width: int, display_height: int, total_cells: int, NONE: tuple):
+    def __init__(self, cell_row: int, cell_col: int, display_width: int, display_height: int, total_cells: int, NONE: tuple):
         
         self.cell_row = cell_row
         self.cell_col = cell_col
@@ -33,8 +31,7 @@ class Cell:
 
 
 
-def draw(display, display_width: int, display_height: int, \
-    matrix, total_cells: int, NONE: tuple):
+def draw(display, display_width: int, display_height: int, matrix, total_cells: int, NONE: tuple):
 
     # fill display
     display.fill(NONE)
@@ -52,27 +49,24 @@ def draw(display, display_width: int, display_height: int, \
 
 
 
-def algorithm(display, display_width: int, display_height: int, \
-    matrix, total_cells: int, start_cell, end_cell, NONE: tuple, \
-        START: tuple, END: tuple, OBSTACLE: tuple, OPEN: tuple, \
-            CLOSED: tuple, PATH: tuple):
+# Initializes a Priority Queue called 'open_cells'
+# for the algorithm to track cells with low f-scores, 
+# and 'tie_breaker' to break ties between cells with 
+# the same f-score.
+def algorithm(display, display_width: int, display_height: int, matrix, 
+        total_cells: int, start_cell, end_cell, NONE: tuple, START: tuple, 
+            END: tuple, OBSTACLE: tuple, OPEN: tuple, CLOSED: tuple, PATH: tuple):
 
+    # Returns Manhattan Distance between
+    # the input cell and end_cell
     def heuristic(cell):
-        """
-            Returns Manhattan Distance
-            between the input cell and end_cell
-        """
+        
         x1, y1 = cell.get_cell_position()
         x2, y2 = end_cell.get_cell_position()
         return abs(x2-x1) + abs(y2-y1)
 
 
-    """ 
-        Initialize a Priority Queue 'open_cells'
-        for the algorithm to track cells with
-        low f-scores, and 'tie_breaker' to break ties 
-        between cells with the same f-score.
-    """
+
     tie_breaker = 0 
     start_cell.g_score = 0
     start_cell.f_score = heuristic(start_cell)
@@ -160,6 +154,7 @@ def algorithm(display, display_width: int, display_height: int, \
 
 
 def main():
+
     #initialize cell modes
     NONE = (50, 50, 50) 
     START = (255, 255, 0) 
@@ -178,8 +173,7 @@ def main():
     for cell_row in range(total_cells):
         matrix.append([])
         for cell_col in range(total_cells):
-            cell = Cell(cell_row, cell_col, \
-                display_width, display_height, total_cells, NONE)
+            cell = Cell(cell_row, cell_col, display_width, display_height, total_cells, NONE)
             matrix[cell_row].append(cell)
 
 
@@ -211,11 +205,10 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and start_cell and end_cell:
-                    algorithm(display, display_width, display_height, matrix, \
-                        total_cells, start_cell, end_cell, NONE, START, END, \
-                            OBSTACLE, OPEN, CLOSED, PATH)
+                    algorithm(display, display_width, display_height, matrix, total_cells, 
+                        start_cell, end_cell, NONE, START, END, OBSTACLE, OPEN, CLOSED, PATH)
 
-
+                
                 
             #update display 
         draw(display, display_width, display_height, matrix, total_cells, NONE)
