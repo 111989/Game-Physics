@@ -124,8 +124,6 @@ def intersect(polygon1: list, polygon2: list) -> bool:
         # polygons didn't intersect, return False
         # Otherwise, add point to simplex
         A = get_support_point(polygon1, polygon2, direction) 
-        if dot(A, direction) < 0: 
-            return False 
+        if dot(A, direction) < 0: return False 
         simplex.append(A) 
-        if handle_simplex(simplex, direction):
-            return True
+        if handle_simplex(simplex, direction): return True
