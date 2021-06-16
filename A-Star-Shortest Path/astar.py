@@ -225,5 +225,4 @@ if __name__ == '__main__':
     display_height = int(args['height'])
     total_cells = int(args['n'])
 
-    
     main()
