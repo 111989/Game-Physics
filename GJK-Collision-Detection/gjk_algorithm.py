@@ -1,7 +1,5 @@
-"""
-     Gilbert-Johnson-Keerthi Algorithm 
-     implementation to detect inter
-     -section between two convex polygons"""
+""" Gilbert-Johnson-Keerthi Algorithm implementation 
+    to detect intersection between two convex polygons """
 
 # Returns True if polygon1 and polygon2 intersect
 def intersect(polygon1: list, polygon2: list) -> bool: 
@@ -30,13 +28,10 @@ def intersect(polygon1: list, polygon2: list) -> bool:
 
 
 
-    # Finds the support point in the 
-    # Minkowski Difference, by taking the
-    # difference between the furthest 
-    # point in the given direction in 
-    # polygon1 and the furthest point 
-    # in the opposite direction on 
-    # polygon2
+    # Finds the support point in the Minkowski Difference, 
+    # by taking the difference between the furthest point 
+    # in the given direction in polygon1 and the furthest 
+    # point in the opposite direction on polygon2.
     def get_support_point(polygon1: list, polygon2: list, direction: list) -> list:
         
         def get_furthest_point(polygon: list, direction: list) -> list:
@@ -56,30 +51,26 @@ def intersect(polygon1: list, polygon2: list) -> bool:
 
 
 
-    # Depending on the size of the 
-    # simplex, finds a new direction 
-    # and updates the simplex. Returns 
-    # True if the simplex contains the 
-    # ORIGIN
+    # Depending on the size of the simplex, 
+    # finds a new direction and updates the 
+    # simplex. Returns True if the simplex 
+    # contains the ORIGIN.
     def handle_simplex(simplex: list, direction: list) -> bool:
         
-
         # Returns the vector triple product 
         # vector1 X vector2 X vector1, where
-        # X represents cross product
+        # X represents cross product.
         def triple_cross(vector1: list, vector2: list) -> list:
             
             x1, y1 = vector1[0], vector1[1]
             x2, y2 = vector2[0], vector2[1]
             return [y1*(y1*x2 - x1*y2), x1*(x1*y2 - y1*x2)]
 
-
-        # Point A is the most recently 
-        # added point to the simplex by 
-        # convention. 
-        # Returns False since we only have 
-        # a line and the ORIGIN is not 
-        # contained within the simplex yet
+        # Point A is the most recently added 
+        # point to the simplex by convention. 
+        # Returns False since we only have a 
+        # line and the ORIGIN is not contained 
+        # within the simplex yet.
         def handle_line(simplex: list, direction: list) -> False:
             
             B, A = simplex[0], simplex[1]
@@ -88,41 +79,41 @@ def intersect(polygon1: list, polygon2: list) -> bool:
             direction[0], direction[1] = AB_perpendicular[0], AB_perpendicular[1]
             return False
 
-
+        # If dot(AB_perpendicular, AC) < 0, ORIGIN is in Voronoi 
+        # region AB, remove point C from the simplex. Similarly, 
+        # point B is redundant if dot(AC_perpendicular, AB) < 0. 
+        # If none of those conditions is satisfied, ORIGIN is in 
+        # triangle ABC, return True.
         def handle_tri(simplex: list, direction: list) -> bool:
             C, B, A = simplex[0], simplex[1], simplex[2]
             AB, AC, AO = subtract(B, A), subtract(C, A), subtract(ORIGIN, A)
             AB_perpendicular = triple_cross(AB, AO)
             AC_perpendicular = triple_cross(AC, AO)
             if dot(AB_perpendicular, AC) < 0 and dot(AC_perpendicular, AB) >= 0:
-                # dot(AB_perpendicular, AC) < 0, ORIGIN is in Voronoi region AB
                 simplex.remove(C) 
                 direction[0], direction[1] = AB_perpendicular[0], AB_perpendicular[1]
                 return False
             elif dot(AB_perpendicular, AC) >= 0 and dot(AC_perpendicular, AB) < 0:
-                # dot(AC_perpendicular, AB) < 0, ORIGIN is in Voronoi region AC
                 simplex.remove(B) 
                 direction[0], direction[1] = AC_perpendicular[0], AC_perpendicular[1]
                 return False
-            # ORIGIN is in triangle ABC
             return True
         return handle_line(simplex, direction) if len(simplex) == 2 else handle_tri(simplex, direction)
 
 
 
-    # initial direction could be chosen randomly
-    # add the first support point on the simplex
-    # the next direction must be towards the ORIGIN
+    # Initial direction could have been chosen 
+    # randomly. Add the first support point on 
+    # the simplex. The next direction must be 
+    # towards the ORIGIN.
     direction = normalize(subtract(centroid(polygon2), centroid(polygon1))) 
     simplex = [get_support_point(polygon1, polygon2, direction)] 
     direction = subtract(ORIGIN, simplex[0]) 
     while True: 
 
-
-        # get new support points
-        # if point A doesn't pass the ORIGIN, 
-        # polygons didn't intersect, return False
-        # Otherwise, add point to simplex
+        # Get new support points. If point A does not 
+        # pass the ORIGIN, polygons did not intersect, 
+        # return False. Else, add point to simplex.
         A = get_support_point(polygon1, polygon2, direction) 
         if dot(A, direction) < 0: return False 
         simplex.append(A) 
