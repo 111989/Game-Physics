@@ -9,6 +9,7 @@ between nodes.
 
 # Projectile Motion
 Interactive tool for visualizing 2D Projectile Motion with zero air 
-resistance and constant acceleration in the vertical direction.
+resistance and constant acceleration in the vertical direction, based on
+Tim Ruscica's implementation.
 
 Dependency: Pygame
