@@ -1,4 +1,4 @@
-<img src="gifs/gjk.gif" width = "400"><img src="gifs/astar.gif" width = "400" height = "240"><img src="gifs/projectile.gif" width = "800">
+<img src="gifs/gjk.gif" width = "300"><img src="gifs/astar.gif" width = "300" height = "180"><img src="gifs/projectile.gif" width = "600">
 
 ## GJK Collision Detection
 Interactive tool for visualizing the Gilbert-Johnson-Keerthi (distance) 
