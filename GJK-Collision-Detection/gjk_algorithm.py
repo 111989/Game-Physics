@@ -98,6 +98,7 @@ def intersect(polygon1: list, polygon2: list) -> bool:
                 direction[0], direction[1] = AC_perpendicular[0], AC_perpendicular[1]
                 return False
             return True
+        
         return handle_line(simplex, direction) if len(simplex) == 2 else handle_tri(simplex, direction)
 
 
