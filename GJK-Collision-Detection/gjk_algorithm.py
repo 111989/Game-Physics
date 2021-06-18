@@ -111,8 +111,8 @@ def intersect(polygon1: list, polygon2: list) -> bool:
     simplex = [get_support_point(polygon1, polygon2, direction)] 
     direction = subtract(ORIGIN, simplex[0]) 
     
-    # Get new support points. If point A does not 
-    # pass the ORIGIN, polygons did not intersect, 
+    # Get new support points. If point A doesn't
+    # pass the ORIGIN, polygons do not intersect, 
     # return False. Else, add point to simplex.
     while True: 
 
