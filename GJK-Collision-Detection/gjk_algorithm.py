@@ -104,9 +104,9 @@ def intersect(polygon1: list, polygon2: list) -> bool:
 
 
     # Initial direction could have been chosen 
-    # randomly. Add the first support point on 
-    # the simplex. The next direction must be 
-    # towards the ORIGIN.
+    # randomly. Find the first support point and 
+    # add it to the simplex. The next direction 
+    # must be towards the ORIGIN.
     direction = normalize(subtract(centroid(polygon2), centroid(polygon1))) 
     simplex = [get_support_point(polygon1, polygon2, direction)] 
     direction = subtract(ORIGIN, simplex[0]) 
