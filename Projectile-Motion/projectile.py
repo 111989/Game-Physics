@@ -85,7 +85,7 @@ def main():
         # draw ball
         # update display
         ball.center = (ball.x, ball.y)
-        DISPLAY_COLOUR = (125, 125, 150)
+        DISPLAY_COLOUR = (175, 175, 225)
         display.fill(DISPLAY_COLOUR)
         HYP_COLOUR = (200, 200, 200)
         HYP_WIDTH = 3
