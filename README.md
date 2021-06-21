@@ -1,4 +1,6 @@
-<img src="gifs/gjk.gif" width = "300"><img src="gifs/astar.gif" width = "300" height = "180"><img src="gifs/projectile.gif" width = "600">
+| GJK Collision Detection | A* Shortest Path | Projectile Motion |
+| ------------- |:-------------:| ------------- |
+| ![gjk](gifs/gjk.gif) | ![astar](gifs/astar.gif) | ![projectile](gifs/projectile.gif) 
 
 ## GJK Collision Detection
 Interactive tool for visualizing the Gilbert-Johnson-Keerthi (distance) 
