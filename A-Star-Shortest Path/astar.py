@@ -53,8 +53,7 @@ def algorithm(display, display_width: int, display_height: int, matrix,
         total_cells: int, start_cell, end_cell, NONE: tuple, START: tuple, 
             END: tuple, OBSTACLE: tuple, OPEN: tuple, CLOSED: tuple, PATH: tuple):
 
-    # Returns Manhattan Distance between
-    # the input cell and end_cell
+    # Returns Manhattan Distance between the input cell and end_cell
     def heuristic(cell):
         
         x1, y1 = cell.get_cell_position()
@@ -67,16 +66,11 @@ def algorithm(display, display_width: int, display_height: int, matrix,
     open_cells = [(start_cell.f_score, tie_breaker, start_cell)]
     open_cells_set = {start_cell} 
 
-    # Fetch the cell with the least 
-    # f_score, call it current_cell.
-    # If current_cell == end_cell, 
-    # optimal path is found, draw it 
-    # and terminate algorithm. Else,
-    # generate successors (neighbours)
-    # of the current_cell and update
-    # the attributes of a successor 
-    # when a shorter path to it is 
-    # found.
+    # Fetch the cell with the least f_score, call it current_cell.
+    # If current_cell == end_cell, optimal path is found, draw it 
+    # and terminate algorithm. Else, generate successors (neighbours)
+    # of the current_cell and update the attributes of a successor 
+    # when a shorter path to it is found.
     while open_cells:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
