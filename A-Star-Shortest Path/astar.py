@@ -45,15 +45,15 @@ def draw(display, display_width: int, display_height: int,
 
 
 
-# Initializes a Priority Queue called 'open_cells'
-# for the algorithm to track cells with low f-scores, 
-# and 'tie_breaker' to break ties between cells with 
-# the same f-score.
+# Initializes a Priority Queue called 'open_cells' for the 
+# algorithm to track cells with low f-scores, and 'tie_breaker' 
+# to break ties between cells with the same f-score.
 def algorithm(display, display_width: int, display_height: int, matrix, 
         total_cells: int, start_cell, end_cell, NONE: tuple, START: tuple, 
             END: tuple, OBSTACLE: tuple, OPEN: tuple, CLOSED: tuple, PATH: tuple):
 
-    # Returns Manhattan Distance between the input cell and end_cell
+    # Returns Manhattan Distance between 
+    # the input cell and end_cell
     def heuristic(cell):
         
         x1, y1 = cell.get_cell_position()
@@ -68,7 +68,7 @@ def algorithm(display, display_width: int, display_height: int, matrix,
 
     # Fetch the cell with the least f_score, call it current_cell.
     # If current_cell == end_cell, optimal path is found, draw it 
-    # and terminate algorithm. Else, generate successors (neighbours)
+    # and terminate algorithm. Else, generate successors (neighbours) 
     # of the current_cell and update the attributes of a successor 
     # when a shorter path to it is found.
     while open_cells:
