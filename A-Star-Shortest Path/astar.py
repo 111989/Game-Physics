@@ -3,7 +3,7 @@
 
 import pygame
 import argparse
-from queue import PriorityQueue
+from heapq import heappush, heappop
 
 class Cell: 
     def __init__(self, cell_row: int, cell_col: int, 
@@ -64,8 +64,7 @@ def algorithm(display, display_width: int, display_height: int, matrix,
     tie_breaker = 0 
     start_cell.g_score = 0
     start_cell.f_score = heuristic(start_cell)
-    open_cells = PriorityQueue()
-    open_cells.put((start_cell.f_score, tie_breaker, start_cell)) 
+    open_cells = [(start_cell.f_score, tie_breaker, start_cell)]
     open_cells_set = {start_cell} 
 
     # Fetch the cell with the least 
@@ -78,12 +77,12 @@ def algorithm(display, display_width: int, display_height: int, matrix,
     # the attributes of a successor 
     # when a shorter path to it is 
     # found.
-    while not open_cells.empty():
+    while open_cells:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        current_cell = open_cells.get()[2] 
+        current_cell = heappop(open_cells)[2] 
         open_cells_set.remove(current_cell)
 
         if current_cell == end_cell:
@@ -136,7 +135,7 @@ def algorithm(display, display_width: int, display_height: int, matrix,
                 successor.f_score = successor.g_score + heuristic(successor)
                 if successor not in open_cells_set:
                     tie_breaker += 1
-                    open_cells.put((successor.f_score, tie_breaker, successor))
+                    heappush(open_cells, (successor.f_score, tie_breaker, successor))
                     open_cells_set.add(successor)
                     successor.mode = OPEN
                     
